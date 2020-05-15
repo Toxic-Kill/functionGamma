@@ -8,12 +8,12 @@ using namespace cv;
 int main()
 {
 	//设置矫正系数
-	float gamma = 0.6;
+	double gamma = 0.6;
 	//建立查询表数组
 	unsigned char Lut[256];
 	for (int i = 0; i < 256; i++)
 	{
-		Lut[i] = pow((float)(i / 255.0), gamma) * 255;
+		Lut[i] = saturate_cast<uchar>(pow((float)(i / 255.0f), gamma)*255.0f);
 	}
 
 
@@ -28,7 +28,7 @@ int main()
 		return -1;
 	}
 
-
+	dstMat = srcMat.clone();
 
 	//进行Gamma矫正
 	for (int m = 0; m < srcMat.rows; m++)
